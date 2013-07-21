@@ -40,7 +40,6 @@ public class PrimeSearchActivity extends Activity {
                     case PrimeSearcher.MESSAGE_FOUND_PRIME:
                         messageCounter++;
                         textViewPrimes.setText(String.format("Already found %d primes.\nLast found %d.", msg.arg2, msg.arg1));
-                        TextView child = new TextView(PrimeSearchActivity.this);
                         break;
                     case PrimeSearcher.MESSAGE_FINISHED:
                         messageCounter++;

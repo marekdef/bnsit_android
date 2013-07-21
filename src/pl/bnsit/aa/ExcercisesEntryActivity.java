@@ -27,15 +27,16 @@ import java.util.concurrent.ExecutorService;
 public class ExcercisesEntryActivity extends ListActivity implements AdapterView.OnItemClickListener {
 
     public static final Class[] CLASSES = new Class[]{
-//            ThreadExample.class,
-//            HandlerExample.class,
-//            HandlerThreadExample.class,
-//            ExecutorExample.class,
-//            AsyncTaskExample.class,
-//            NationalGeographicExample.class,
-//            PrimeSearchActivity.class,
-//            CameraActivity.class,
-//            PolishPostHttpTracking.class,
+            ThreadExample.class,
+            HandlerExample.class,
+            HandlerThreadExample.class,
+            ExecutorExample.class,
+            AsyncTaskExample.class,
+            NationalGeographicExample.class,
+            PrimeSearchActivity.class,
+
+            CameraActivity.class,
+            PolishPostHttpTracking.class,
             RandomQuoteGsonActivity.class
     };
 

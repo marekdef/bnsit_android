@@ -24,6 +24,7 @@ public class NationalGeographicMainParser implements Runnable {
     private Handler handler;
 
     public NationalGeographicMainParser(Handler handler, File filesDir) {
+        //TODO 1B-1 Change this to different executor. Perhaps decrease number of threads
         executorService = Executors.newFixedThreadPool(4);
         this.storeDirectory = filesDir;
         this.handler = handler;
@@ -50,6 +51,7 @@ public class NationalGeographicMainParser implements Runnable {
             }
         } catch (IOException e) {
             Log.e(TAG, "IOException", e);
+            //TODO 1B-3 Inform activity via handler about the error
         }
 
         try {
@@ -108,6 +110,7 @@ class NationalGeographicImageFetcher implements Runnable {
                 handler.obtainMessage(NationalGeographicExample.MESSAGE_READY, file).sendToTarget();
             } catch (IOException e) {
                 Log.e(TAG, "IOException", e);
+                //TODO 1B-2
             } finally {
                 closeQuietly(inputStream);
                 closeQuietly(fileWriter);
