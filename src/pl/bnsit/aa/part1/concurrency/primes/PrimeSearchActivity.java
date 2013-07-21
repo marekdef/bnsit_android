@@ -24,40 +24,40 @@ import java.util.concurrent.Executors;
 public class PrimeSearchActivity extends Activity {
 
     private int messageCounter = 0;
+    private TextView textViewNotPrimes;
+    private TextView textViewPrimes;
+    private TextView textViewSummary;
+    private ProgressBar primes;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.primes);
 
+        textViewPrimes = (TextView) findViewById(R.id.textViewPrimes);
+         textViewNotPrimes = (TextView) findViewById(R.id.textViewNotPrimes);
+         textViewSummary = (TextView) findViewById(R.id.textViewSummary);
+         primes = (ProgressBar) findViewById(R.id.progressBar);
+
         Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                TextView textViewPrimes = (TextView) findViewById(R.id.textViewPrimes);
-                TextView textViewNotPrimes = (TextView) findViewById(R.id.textViewNotPrimes);
-                TextView textViewSummary = (TextView) findViewById(R.id.textViewSummary);
-                ProgressBar primes = (ProgressBar) findViewById(R.id.progressBar);
-                switch (msg.what) {
-                    case PrimeSearcher.MESSAGE_FOUND_PRIME:
-                        messageCounter++;
-                        textViewPrimes.setText(String.format("Already found %d primes.\nLast found %d.", msg.arg2, msg.arg1));
-                        break;
-                    case PrimeSearcher.MESSAGE_FINISHED:
-                        messageCounter++;
-                        Toast.makeText(PrimeSearchActivity.this, "Finished", Toast.LENGTH_LONG).show();
-                        textViewSummary.setText("Received " + messageCounter + " messages.");
-                        primes.setVisibility(View.GONE);
-                        break;
-                    case PrimeSearcher.MESSAGE_UPDATE_NOT_PRIMES:
-                        messageCounter++;
-                        textViewNotPrimes.setText(String.format("Count of numbers that are not primes is %d.\nRemoved multiples of %d.", msg.arg2, msg.arg1));
-                        break;
-                }
-            }
+            //TODO 1C-2 make handler receive 3 messages that are devined in pl.bnsit.aa.part1.concurrency.primes.PrimeSearcher
         };
 
         new PrimeSearcher(handler, Byte.MAX_VALUE);
     }
 
+    private void updateWhenNotPrimesShifted(int processed, int notPrimes) {
+        textViewNotPrimes.setText(String.format("Count of numbers that are not primes is %d.\nRemoved multiples of %d.", notPrimes, processed));
+    }
+
+    private void showToastWhenFinished(int messageCounter) {
+        Toast.makeText(this, "Finished", Toast.LENGTH_LONG).show();
+        textViewSummary.setText("Received " + messageCounter + " messages.");
+        primes.setVisibility(View.GONE);
+    }
+
+    private void updateAboutFindPrimes(int primeFound, int totalPrimes) {
+        textViewPrimes.setText(String.format("Already found %d primes.\nLast found %d.", totalPrimes, primeFound));
+    }
 
 
 }

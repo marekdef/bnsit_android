@@ -20,12 +20,14 @@ public class PrimeSearcher {
     public static final int MESSAGE_FINISHED = 0;
     public static final int MESSAGE_FOUND_PRIME = 1;
     public static final int MESSAGE_UPDATE_NOT_PRIMES = 2;
+    public static final int POOLS_IN_THREAD = 1;
 
     private final Handler messageBus;
-    private Executor executor = Executors.newFixedThreadPool(5);
+    //TODO 1C-1 Why is taking so slow ?
+    private Executor executor = Executors.newFixedThreadPool(POOLS_IN_THREAD);
 
     private Set<Integer> alreadyNotPrimes = Collections.synchronizedSet(new HashSet<Integer>());
-    private Set<Integer> primes = new HashSet<Integer>();
+    private Set<Integer> primes = new HashSet<Integer>(); //only one thread deals here so no synchronization
     private int maxValue;
 
     public PrimeSearcher(Handler messageBus, int maxValue) {
@@ -59,7 +61,9 @@ public class PrimeSearcher {
         }
 
         private void notifyFinished() {
-            messageBus.obtainMessage(MESSAGE_FINISHED, primes.size(), alreadyNotPrimes.size() ).sendToTarget();
+            int totalPrimes = primes.size();
+            int totalNotPrimes = alreadyNotPrimes.size();
+            //TODO 1C-3 send a message that we finished the job
         }
 
         private void notifyPrimeFound(int prime) {

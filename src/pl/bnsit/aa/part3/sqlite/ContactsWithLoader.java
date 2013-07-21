@@ -23,6 +23,7 @@ import pl.bnsit.aa.R;
  */
 public class ContactsWithLoader extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
     private static final String TAG = ContactsWithLoader.class.getSimpleName();
+    private static final int CONTACTS_LOADER_ID = 2;
     private ListAdapter listAdapter;
     private ListView list;
     private Cursor cursor;
@@ -42,8 +43,7 @@ public class ContactsWithLoader extends FragmentActivity implements LoaderManage
 
         setNewCursor(null);
 
-
-        getSupportLoaderManager().initLoader(0, null, this);
+        //TODO 1D-1 are we missing something here?
     }
 
     private void setNewCursor(Cursor cursor) {
@@ -64,6 +64,11 @@ public class ContactsWithLoader extends FragmentActivity implements LoaderManage
                 int id = cursor.getInt(0);
                 View viewById = view.findViewById(android.R.id.text2);
 
+                determinePhone(id, (TextView) viewById);
+                return view;
+            }
+
+            private void determinePhone(int id, TextView viewById) {
                 Cursor query = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                         new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER},
                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=? AND " + ContactsContract.CommonDataKinds.Phone.NUMBER + " IS NOT NULL",
@@ -72,7 +77,6 @@ public class ContactsWithLoader extends FragmentActivity implements LoaderManage
                 query.moveToFirst();
                 ((TextView)viewById).setText(query.getString(query.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
                 query.close();
-                return view;
             }
         };
 
@@ -89,19 +93,29 @@ public class ContactsWithLoader extends FragmentActivity implements LoaderManage
 
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
         Log.d(TAG, String.format("onCreateLoader(%s)", Thread.currentThread().getName()));
-        CursorLoader cursorLoader = new CursorLoader(this,
-                ContactsContract.Contacts.CONTENT_URI,
-                new String[] {
-                        ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME},
-                "((" + ContactsContract.Contacts.DISPLAY_NAME + " NOTNULL) AND ("
-                                    + ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1) AND ("
-                                    + ContactsContract.Contacts.DISPLAY_NAME + " != '' ))",
-                null,
-                ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC"
-        );
+        CursorLoader cursorLoader = null;
+        switch(id) {
+            case CONTACTS_LOADER_ID:
+                 cursorLoader  = createContactsCursor();
+                 break;
+        }
+
         return cursorLoader;
+    }
+
+    private CursorLoader createContactsCursor() {
+        return new CursorLoader(this,
+                    ContactsContract.Contacts.CONTENT_URI,
+                    new String[] {
+                            ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME},
+                    "((" + ContactsContract.Contacts.DISPLAY_NAME + " NOTNULL) AND ("
+                                        + ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1) AND ("
+                                        + ContactsContract.Contacts.DISPLAY_NAME + " != '' ))",
+                    null,
+                    ContactsContract.Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC"
+            );
     }
 
     @Override
