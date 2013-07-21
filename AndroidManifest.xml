@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="pl.bnsit.aa"
+          android:versionCode="1"
+          android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="7"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+        <activity android:name="pl.bnsit.aa.part1.concurrency.HandlerExample"/>
+
+        <activity android:name="pl.bnsit.aa.part1.concurrency.HandlerThreadExample"/>
+        <activity android:name="pl.bnsit.aa.part1.concurrency.ThreadExample"/>
+        <activity android:name="pl.bnsit.aa.part1.concurrency.ExecutorExample"/>
+
+        <activity android:name="pl.bnsit.aa.part1.concurrency.AsyncTaskExample"/>
+
+
+        <activity android:name=".part1.concurrency.national.NationalGeographicExample"/>
+        <activity android:name=".part1.concurrency.CameraActivity" />
+        <activity android:name=".part2.http.RandomQuoteApacheClientActivity"/>
+        <activity android:name=".part2.http.RandomQuoteHttpUrlConnectionActivity"/>
+        <activity android:name=".part3.sqlite.ContactsWithLoader" android:label="Contacts with loader"/>
+        <activity android:name=".part3.post.QuotesActivity" />
+
+        <activity android:name=".part5.gson.RandomQuoteGsonActivity" />
+        <activity android:name=".part4.sqlite.SQToDoLite" android:label="Todo based on SQLite">
+        </activity>
+        <activity android:name=".part4.sqlite.AddTodo"/>
+        <activity android:name=".part1.concurrency.primes.PrimeSearchActivity"/>
+        <activity android:name=".ExcercisesEntryActivity" android:label="ExcercisesForTraining">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".part1.concurrency.CameraActivity" android:label="Camera on AsyncTask"/>
+        <activity android:name=".part2.http.PolishPostHttpTracking"
+                  android:label="Tracking of polish post office parcels"/>
+
+    </application>
+</manifest> 

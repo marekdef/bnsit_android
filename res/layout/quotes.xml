@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login to service"
+            android:id="@+id/buttonLogin" android:layout_gravity="center_horizontal"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create User"
+            android:id="@+id/buttonCreateUser" android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  android:layout_gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="username"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextUserName"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="password"
+                android:layout_gravity="center"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextPassword"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  android:layout_gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="first name"
+                />
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/editTextFirstName" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" android:layout_gravity="center"
+                  android:id="@+id/linearLayout">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="last name"
+                  android:id="@+id/textView1"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/editTextLastName"/>
+    </LinearLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/buttonPicture"
+            android:layout_gravity="center"/>
+
+</LinearLayout>

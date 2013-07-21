@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Label"
+            android:id="@+id/textView" android:layout_gravity="center"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="New EditText"
+            android:id="@+id/editTextLabel" android:layout_gravity="center"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:id="@+id/textView1" android:layout_gravity="center"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="New EditText"
+            android:id="@+id/editTextDescription" android:layout_gravity="center"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Due"
+            android:id="@+id/textView2" android:layout_gravity="center"/>
+    <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/datePickerDue" android:layout_gravity="center"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Priority"
+            android:id="@+id/textView3" android:layout_gravity="center"/>
+    <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner" android:entries="@array/priorities" android:clickable="false"
+            android:longClickable="true"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent">
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:id="@+id/checkBoxDone" android:checked="false"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save todo"
+                android:id="@+id/button"/>
+    </LinearLayout>
+
+</LinearLayout>

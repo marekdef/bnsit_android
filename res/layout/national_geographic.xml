@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Press button to fetch images"
+            android:id="@+id/textView" android:layout_centerHorizontal="true" android:layout_alignParentTop="true"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fetch Images"
+            android:id="@+id/button" android:layout_centerHorizontal="true" android:layout_alignParentBottom="true"/>
+
+    <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@id/button"
+            android:layout_below="@id/textView"
+            android:id="@+id/horizontalScrollView" android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+        <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/contents"/>
+    </HorizontalScrollView>
+</RelativeLayout>
