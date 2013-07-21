@@ -75,7 +75,7 @@ public class RandomQuoteApacheClientActivity extends Activity {
 
     @Override
     protected void onPause() {
-//       handler.removeCallbacksAndMessages(national_geographic);
+        handler.removeCallbacksAndMessages(null);
         super.onPause();
     }
 }

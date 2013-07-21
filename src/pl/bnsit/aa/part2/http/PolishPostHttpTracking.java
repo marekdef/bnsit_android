@@ -23,6 +23,7 @@ import java.net.URLConnection;
  */
 public class PolishPostHttpTracking extends Activity implements View.OnClickListener {
     public static final String POCZTA_POLSKA_URL_WS = "http://sledzenie.poczta-polska.pl/wssClient.php";
+    public static final String TRACKING_NUMBER = "n";
     private EditText editText;
     private WebView webView;
 
@@ -47,22 +48,24 @@ public class PolishPostHttpTracking extends Activity implements View.OnClickList
                 try {
                     URLConnection urlConnection = new URL(POCZTA_POLSKA_URL_WS).openConnection();
 
-                    urlConnection.setDoOutput(true);
+                    //TODO 2C-1 make sure you can write to the connection
                     OutputStream outputStream = urlConnection.getOutputStream();
 
-                    String params = new EncodedParamBuilder()
-                            .addParam("n", trackingNumber)
-                            .build();
+                    //TODO 2C-2 encode params with http encoding key=value&key2=value  (EncodedParamBuilder())
+                    //the parama for tracking number is n (look for the constant)
+                    String params = null;
 
-                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+                    OutputStreamWriter outputStreamWriter = null;//qet output stream TODO 2C-3
 
                     outputStreamWriter.write(params);
-                    outputStreamWriter.close();
+                    //TODO 2C-4 write is not enough we must force the connection to send the content
 
-                    InputStream inputStream = urlConnection.getInputStream();
+                    InputStream inputStream = null;//get inputstream to read the resonse TODO 2C-5
                     String response = getStringFromInput(inputStream);
-                    webView.loadDataWithBaseURL(null, response, "text/html",
-                            "utf-8", null);
+
+                    ///TODO 2C-5 well this should be done on UI thread but it isn't
+                    setWebView(response);
+
 
                 } catch (MalformedURLException e) {
 
@@ -84,5 +87,11 @@ public class PolishPostHttpTracking extends Activity implements View.OnClickList
                 return bos.toString("utf-8");
             }
         }).start();
+    }
+
+    public void setWebView(String response) {
+        webView.loadDataWithBaseURL(null, response, "text/html",
+                "utf-8", null);
+        webView.setVisibility(View.VISIBLE);
     }
 }

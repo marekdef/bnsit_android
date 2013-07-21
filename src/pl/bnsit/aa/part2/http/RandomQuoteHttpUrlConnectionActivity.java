@@ -47,11 +47,15 @@ public class RandomQuoteHttpUrlConnectionActivity extends Activity implements Vi
     protected void onResume() {
         super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
 
+        restoreOldQuote();
+
+    }
+
+    private void restoreOldQuote() {
         TextView quoteView = (TextView) findViewById(R.id.quote);
         String quote = getSharedPreferences(QUOTE, MODE_PRIVATE).getString(QUOTE, null);
         if (quote != null)
             quoteView.setText(quote);
-
     }
 
     @Override
@@ -71,12 +75,12 @@ public class RandomQuoteHttpUrlConnectionActivity extends Activity implements Vi
                     HttpURLConnection urlConnection = null;
                     try {
                         URL url = new URL(RandomQuoteClickListener.QUOTES_RANDOM_URL);
-                        urlConnection = (HttpURLConnection) url.openConnection();
+                        urlConnection = null; //TODO 2B-1 instantiate the connection object
                         int responseCode = urlConnection.getResponseCode();
                         if (isInvalidResponse(responseCode))
                             return;
 
-                        String quote = getStringFromStream(urlConnection);
+                        String quote = getStringFromStream(urlConnection); //This method is empty! TODO 2B-2 implement it
                         setNewQuote(quote);
 
                     } catch (MalformedURLException e) {
@@ -84,8 +88,9 @@ public class RandomQuoteHttpUrlConnectionActivity extends Activity implements Vi
                     } catch (IOException e) {
                         setErrorMessage("IOException ", e);
                     } finally {
-                        if(urlConnection != null)
-                            urlConnection.disconnect();
+                        if(urlConnection != null) {
+                            //TODO 2B-3 open connection may suck resources!
+                        }
                     }
                 }
 
@@ -98,18 +103,9 @@ public class RandomQuoteHttpUrlConnectionActivity extends Activity implements Vi
                 }
 
                 private String getStringFromStream(HttpURLConnection urlConnection) throws IOException {
-                    InputStream inputStream = urlConnection.getInputStream();
-                    byte[] buffer = new byte[1024];
-                    int bytesRead = 0;
 
-                    int contentLength = urlConnection.getContentLength();
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream(contentLength > 0 ? contentLength : 1024);
-
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        bos.write(buffer, 0, bytesRead);
-                    }
-
-                    return bos.toString("utf-8");
+                    //TODO 2B-2 implement by reading from connection input to a string. Use buffering if possible.
+                    return "Not supported yet!";
                 }
             }.start();
 

@@ -19,7 +19,7 @@ import java.util.Date;
 public class Quote {
 
     String content;
-    @SerializedName("created_at")
+    //TODO 5A-3 note that this name is different than json presented. Find an annotation that will help with that
     Date createdAt;
     long id;
     User user;

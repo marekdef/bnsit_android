@@ -33,14 +33,16 @@ public class User {
     long photo_file_size;
 
 
-    @SerializedName("encode_image")
+    //TODO 5A-4 The photo also does not exists in json. We need to find a way to turn encode_image to
     Bitmap photo;
 
-    public static class BitmapDeserializer implements JsonDeserializer<Bitmap> {
+    //TODO 5A-5 We need a custom deserializer. Create a private class BitmapDeserializer that implements a proper interface
+    //from Gson look for JsonDeserializer
 
-        @Override
-        public Bitmap deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            byte[] decoded = Base64.decode(json.getAsString(), Base64.DEFAULT);
+    public static class BitmapDeserializer  {
+
+        private Bitmap createBitmapFromString(String content) {
+            byte[] decoded = Base64.decode(content, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
             return bitmap;
         }

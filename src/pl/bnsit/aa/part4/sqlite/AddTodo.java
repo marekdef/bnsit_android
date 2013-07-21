@@ -96,10 +96,16 @@ public class AddTodo extends Activity implements View.OnClickListener {
         if (todoId != NO_ID) {
             stopTracking = true;
 
-            Cursor cursor = sqlDB.query(SQToDoLite.TodoDatabaseHelper.TABLE_NAME,
-                    SQToDoLite.TodoDatabaseHelper.COLUMNS,
-                    SQToDoLite.TodoDatabaseHelper.ID + "= ?",
-                    new String[]{String.valueOf(todoId)},
+            //TODO 3A-8 Query is missing some properties. First it needs table name
+            //not this is full projection perhaps we don't show some of the fields in UI
+            //then we need to find exact todo that we want to show
+            String whereCondition = SQToDoLite.TodoDatabaseHelper.ID + "= ?";
+            //TODO 3A-9 See ? above it is a parameter that value should be added below
+            String[] selectionArgs = {};
+            Cursor cursor = sqlDB.query(null,
+                    null,
+                    whereCondition,
+                    selectionArgs,
                     null,
                     null,
                     null);
@@ -109,7 +115,9 @@ public class AddTodo extends Activity implements View.OnClickListener {
 
             cursor.moveToFirst();
 
-            editTextDescription.setText(cursor.getString(cursor.getColumnIndex(SQToDoLite.TodoDatabaseHelper.CONTENT)));
+            //TODO 3A-11 Remembering indexes might be tricky lets use helper method for that. Examples below.
+            int contentColumnIndex = -1;
+            editTextDescription.setText(cursor.getString(contentColumnIndex));
             editTextLabel.setText(cursor.getString(cursor.getColumnIndex(SQToDoLite.TodoDatabaseHelper.LABEL)));
             checkBox.setChecked(cursor.getInt(cursor.getColumnIndex(SQToDoLite.TodoDatabaseHelper.DONE)) == 1);
             setDateToPicker(datePicker, cursor.getLong(cursor.getColumnIndex(SQToDoLite.TodoDatabaseHelper.DUE)));
@@ -129,15 +137,15 @@ public class AddTodo extends Activity implements View.OnClickListener {
 
     private void updateOrInsertToDo() {
         ContentValues values = new ContentValues();
-        values.put(SQToDoLite.TodoDatabaseHelper.CONTENT, editTextDescription.getText().toString());
 
-        values.put(SQToDoLite.TodoDatabaseHelper.LABEL, editTextLabel.getText().toString());
+        //TODO 3A-10 Please fill missing columns. We want a full udpate on all columns
         values.put(SQToDoLite.TodoDatabaseHelper.DUE, getDateFromPicker(datePicker));
-        values.put(SQToDoLite.TodoDatabaseHelper.DONE, checkBox.isChecked());
+
         values.put(SQToDoLite.TodoDatabaseHelper.PRIORITY, spinnerPriority.getSelectedItemPosition());
 
         if (todoId != NO_ID) {
-            sqlDB.update(SQToDoLite.TodoDatabaseHelper.TABLE_NAME, values, SQToDoLite.TodoDatabaseHelper.ID + "= ?", new String[]{String.valueOf(todoId)});
+            //TODO 3A-11 Is very important to modify specyfic item in the databes we forgot something here
+            sqlDB.update(SQToDoLite.TodoDatabaseHelper.TABLE_NAME, values, null, new String[]{String.valueOf(todoId)});
         } else {
             values.put(SQToDoLite.TodoDatabaseHelper.CREATED, new Date().getTime());
             long newId = sqlDB.insert(SQToDoLite.TodoDatabaseHelper.TABLE_NAME, null, values);

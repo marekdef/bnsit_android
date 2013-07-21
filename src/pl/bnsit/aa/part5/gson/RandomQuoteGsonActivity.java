@@ -98,9 +98,12 @@ public class RandomQuoteGsonActivity extends Activity implements View.OnClickLis
                 }
 
                 private Quote parseJSON(String json) {
-                    Gson gson1 = new GsonBuilder().registerTypeAdapter(Bitmap.class, new User.BitmapDeserializer()).create();
+                    //TODO 5A-1 Prepare gson parser for parsing first using new
+                    Gson gson1 = null;
+                    //TODO 5A-6 for more sophisticated options needed later we need a builder
 
-                    Quote quote = gson1.fromJson(json, Quote.class);
+                    //TODO 5A-2 We want to create a quote from json
+                    Quote quote = gson1.fromJson((String)null, null);
                     return quote;
                 }
 
