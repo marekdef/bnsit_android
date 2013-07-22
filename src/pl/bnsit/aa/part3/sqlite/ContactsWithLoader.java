@@ -57,7 +57,7 @@ public class ContactsWithLoader extends FragmentActivity implements LoaderManage
         listAdapter = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_2, cursor,
                 new String[] { ContactsContract.Contacts.DISPLAY_NAME  },
-                new int[] { android.R.id.text1 }) {
+                new int[] { android.R.id.text1 }, 0) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup parent) {
                 View view = super.newView(context, cursor, parent);
