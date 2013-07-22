@@ -29,6 +29,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
     private String CAM1 = "http://85.89.179.181/capture/ch2.mjpg";
     private String CAM2 = "http://85.89.179.179/capture/ch2.mjpg";
     private String CAM3 = "http://demo1.stardotcams.com/nph-mjpeg.cgi";
+    private String CAM4 = "http://83.64.164.6/axis-cgi/mjpg/video.cgi?resolution=320x240";
 
     private CameraActivity.CameraDownloadAsyncTask cameraDownloadAsyncTask;
     private View button1;
@@ -74,8 +75,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
 
             String absolutePath = File.createTempFile("download", "image", getCacheDir()).getAbsolutePath();
 
-            cameraDownloadAsyncTask = new CameraDownloadAsyncTask(absolutePath, width, height);
-            cameraDownloadAsyncTask.execute(cameraUrl);
+            executeDownloadTask(cameraUrl, width, height, absolutePath);
         } catch (IOException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -83,9 +83,15 @@ public class CameraActivity extends Activity implements View.OnClickListener {
 
     }
 
+    private void executeDownloadTask(String cameraUrl, int width, int height, String absolutePath) {
+        //TODO 1E-1 Create download task in UI thread
+        //TODO 1E-2 Execute the task in download thread
+    }
+
     private void cancelPendingTask() {
-        if (cameraDownloadAsyncTask != null)
-            cameraDownloadAsyncTask.cancel(true);
+        if (cameraDownloadAsyncTask != null) {
+            //TODO 1E-5 Please cancel the task
+        }
         cameraDownloadAsyncTask = null;
     }
 
@@ -196,7 +202,8 @@ public class CameraActivity extends Activity implements View.OnClickListener {
 
         private boolean publishProgressOrCancel(String message) {
             if (!isCancelled()) {
-                publishProgress(message);
+
+                //TODO 1E-4 Publish progress with a message
                 return false;
             }
             publishProgress("Task cancelled!");
@@ -224,9 +231,10 @@ public class CameraActivity extends Activity implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            if (bitmap != null && !isCancelled())
-                imageView.setImageBitmap(bitmap);
+            //TODO 1E-3 set the bitmap on image view. Note we are in UI
+            if (bitmap != null && !isCancelled()) {
 
+            }
         }
 
 
